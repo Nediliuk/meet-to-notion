@@ -1,5 +1,6 @@
-# Transcripts (can contain sensitive meeting content)
+# Transcripts and test recordings (local only, sensitive content)
 transcripts/
+tests/
 
 # Python
 __pycache__/
