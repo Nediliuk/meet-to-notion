@@ -26,7 +26,7 @@ recording.mp4  →  Whisper (local)  →  Claude Code  →  Notion page
 Відкрий Claude Code і вставте одне повідомлення:
 
 ```
-Встанови meet-to-notion: https://github.com/YOUR_USERNAME/meet-to-notion
+Встанови meet-to-notion: https://github.com/Nediliuk/meet-to-notion
 ```
 
 Claude Code автоматично:
