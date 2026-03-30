@@ -71,28 +71,23 @@ echo -e "${GREEN}✓${RESET} ~/.claude/skills/transcription-pipeline/"
 
 # ── 7. Add snippet to ~/.claude/CLAUDE.md ────────────────────────────────────
 CLAUDE_MD="$HOME/.claude/CLAUDE.md"
-MARKER="## meet-to-notion pipeline"
+MARKER="transcription-pipeline"
 
 if grep -q "$MARKER" "$CLAUDE_MD" 2>/dev/null; then
-    echo -e "${GREEN}✓${RESET} ~/.claude/CLAUDE.md (вже містить секцію)"
+    echo -e "${GREEN}✓${RESET} ~/.claude/CLAUDE.md (вже містить посилання)"
 else
-    cat >> "$CLAUDE_MD" << 'EOF'
+    # Append minimal one-liner under existing "## Скіли" section, or create it
+    if grep -q "^## Скіли" "$CLAUDE_MD" 2>/dev/null; then
+        sed -i '' '/^## Скіли/a\
+- **transcription-pipeline** — запис Google Meet → транскрипція → КП → Notion. Деталі: `~/.claude/skills/transcription-pipeline/SKILL.md`' "$CLAUDE_MD"
+    else
+        cat >> "$CLAUDE_MD" << 'EOF'
 
-## meet-to-notion pipeline
+## Скіли
 
-Скрипт транскрипції: `~/.claude/scripts/transcribe.py`
-Скіл: `~/.claude/skills/transcription-pipeline/`
-
-Запуск: `python3 ~/.claude/scripts/transcribe.py <recording.mp4>`
-- Transcript → stdout (Claude Code перехоплює) + `./transcripts/<name>.txt`
-- Модель: Whisper large-v3-turbo (локально, без API ключа)
-- Мова: українська. Змінити: константа LANGUAGE у скрипті.
-- Apple Silicon / CPU: fp16 вимкнено автоматично.
-
-Перший запуск завантажить ~800 MB моделі в ~/.cache/whisper/
-
-Після встановлення скажи Claude Code: "налаштуй КП шаблон"
+- **transcription-pipeline** — запис Google Meet → транскрипція → КП → Notion. Деталі: `~/.claude/skills/transcription-pipeline/SKILL.md`
 EOF
+    fi
     echo -e "${GREEN}✓${RESET} ~/.claude/CLAUDE.md оновлено"
 fi
 
